@@ -1,7 +1,7 @@
 # Проект «Киноман» [![Build status][travis-image]][travis-url]
 
 * Студент: [Витек Коровин](https://up.htmlacademy.ru/ecmascript/13/user/156077).
-* Наставник: `Неизвестно`.
+* Наставник: [Арут Айдинян](https://htmlacademy.ru/profile/id1529101)
 
 ---
 
