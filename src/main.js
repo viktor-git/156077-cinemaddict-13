@@ -7,6 +7,8 @@ import {CreateFilm} from "./view/main-content/films/films-item.js";
 import {CreateShowMoreBtn} from "./view/main-content/films/show-more-button.js";
 import {CreateFilmDetails} from "./view/main-content/films/film-detail.js";
 import {CreateFooterStat} from "./view/footer/footer-stats.js";
+import {getRandomNum} from "./utils/utils.js";
+import {generateFilm} from "./mocks/films.js";
 
 const FILMS_NUMBER = 5;
 const EXTRA_FILMS_NUMBER = 2;
@@ -47,9 +49,8 @@ render(filmSection, CreateFilmsList(topRatedOptions), `beforeend`);
 render(filmSection, CreateFilmsList(mostCommentedOptions), `beforeend`);
 
 const filmsList = filmSection.querySelector(`.films-list__container`);
-
 for (let i = 0; i < FILMS_NUMBER; i++) {
- render(filmsList, CreateFilm(), `beforeend`);
+ render(filmsList, CreateFilm(generateFilm()), `beforeend`);
 }
 render(filmsList, CreateShowMoreBtn(), `afterend`);
 
@@ -57,8 +58,8 @@ const mostCommentedFilmsList = filmSection.querySelector(`.most-commented`);
 const topRatedFilmsList = filmSection.querySelector(`.top-rated`);
 
 for (let i = 0; i < EXTRA_FILMS_NUMBER; i++) {
-  render(mostCommentedFilmsList, CreateFilm(), `beforeend`);
-  render(topRatedFilmsList, CreateFilm(), `beforeend`);
+  render(mostCommentedFilmsList, CreateFilm(generateFilm()), `beforeend`);
+  render(topRatedFilmsList, CreateFilm(generateFilm()), `beforeend`);
 }
 
 const footer = document.querySelector(`.footer`);
