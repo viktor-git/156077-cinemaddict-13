@@ -10,6 +10,7 @@ import {CreateFooterStat} from "./view/footer/footer-stats.js";
 import {getRandomNum} from "./utils/utils.js";
 import {generateFilm} from "./mocks/films.js";
 
+
 const FILMS_NUMBER = 5;
 const EXTRA_FILMS_NUMBER = 2;
 
@@ -67,3 +68,28 @@ render(footer, CreateFilmDetails(), `afterend`);
 
 const footerStat = footer.querySelector(`.footer__statistics`);
 render(footerStat, CreateFooterStat(), `beforeend`);
+
+const filmDetail = document.querySelector(`.film-details`);
+const closeDetail = filmDetail.querySelector(`.film-details__close-btn`);
+
+const cardClickHandler = (evt) => {
+  const target = evt.target;
+
+  if (target.closest(`.film-card__poster`) || target.closest(`.film-card__title`) || target.closest(`.film-card__comments`)) {
+    filmDetail.classList.remove(`visually-hidden`);
+  }
+  document.addEventListener('click', filmDetailCLoseHandler);
+}
+
+const filmDetailCLoseHandler = (evt) => {
+  const target = evt.target;
+
+  if (target.closest(`.film-details__close-btn`)) {
+    filmDetail.classList.add(`visually-hidden`);
+  }
+  document.removeEventListener(`click`, filmDetailCLoseHandler);
+
+}
+
+document.addEventListener('click', cardClickHandler);
+
