@@ -1,4 +1,4 @@
-export const CreateFilm = (film) => {
+export const createFilm = (film) => {
   const BRIEF_DESCRIPTION = 139;
 
   const {name, poster, description, rating, productionYear: year, genre, duration} = film;

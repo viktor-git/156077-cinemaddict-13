@@ -46,7 +46,7 @@ const generateRating = () => {
 };
 
 const generateProductionYear = () => {
-  const MIN_YEAR= 1980;
+  const MIN_YEAR = 1980;
   const MAX_YEAR = 2020;
   return getRandomNum(MIN_YEAR, MAX_YEAR);
 };
@@ -64,9 +64,9 @@ const generateGenre = () => {
 };
 
 const generateDuration = () => {
-  const MIN_HOUR= 1;
+  const MIN_HOUR = 1;
   const MAX_HOUR = 3;
-  const MIN_MINUTES= 20;
+  const MIN_MINUTES = 20;
   const MAX_MINUTES = 59;
 
   const hours = getRandomNum(MIN_HOUR, MAX_HOUR);
