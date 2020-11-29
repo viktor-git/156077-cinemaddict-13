@@ -1,5 +1,8 @@
 import {getRandomNum} from "../utils/utils.js";
+import * as dayjs from "dayjs";
+import {generateComment} from "../mocks/comments.js";
 
+console.log(getRandomNum());
 const generateName = () => {
   const names = [
     `Шальная миля`,
@@ -40,7 +43,7 @@ const generateDescription = () => {
 };
 
 const generateRating = () => {
-  const MIN_RAITING = 0;
+  const MIN_RAITING = 1;
   const MAX_RAITING = 10;
   return getRandomNum(MIN_RAITING, MAX_RAITING);
 };
@@ -59,8 +62,11 @@ const generateGenre = () => {
     `Lyric`,
     `Erunda`
   ];
-
-  return genres[getRandomNum(0, genres.length)];
+  const filmGenres =  [];
+  for (let i = 0; i < getRandomNum(1, genres.length); i++) {
+    filmGenres.push(genres[getRandomNum(0, genres.length)]);
+  }
+  return filmGenres;
 };
 
 const generateDuration = () => {
@@ -75,16 +81,112 @@ const generateDuration = () => {
   return `${hours}h ${minutes}m`;
 };
 
+const generateComments = () => {
+  const comments = [];
+  for (let i = 0; i < getRandomNum(0 , 5); i++) {
+    comments.push(generateComment());
+  }
+
+  return comments;
+}
+
+const generateProducer = () => {
+  const producers = [
+  `Anthony Mann`,
+  `Anthonya Womann`,
+  `Anatole Mannsteiner`,
+  `Yacik Man`
+  ];
+
+  return producers[getRandomNum(0 , producers.length)];
+};
+
+const generateWriters = () => {
+  const writers = [
+  `Anne Wigton`,
+  `Heinz Herald`,
+  `Richard Wei`,
+  `Herald Anne`
+  ];
+
+  const filmWriters = [];
+  for (let i = 0; i < getRandomNum(1 , writers.length); i++) {
+    filmWriters.push(writers[getRandomNum(0, writers.length)]);
+  }
+
+  return filmWriters;
+
+};
+
+const generateActors = () => {
+  const actors = [
+  `Erich von Stroheim`,
+  `Mary Beth Hughes`,
+  `Dan Duryea`,
+  `Herald Anne`,
+  `Anne Wigton`,
+  `Heinz Herald`,
+  `Richard Wei`
+  ];
+
+  const filmActors = [];
+  for (let i = 0; i < getRandomNum(1 , actors.length); i++) {
+    filmActors.push(actors[getRandomNum(0, actors.length)]);
+  }
+
+  return filmActors;
+
+};
+
+const generateReleaseDate = () => {
+  const year = getRandomNum(1980, 2020);
+  const month = getRandomNum(1, 12);
+  const day = getRandomNum(1, 28);
+  const date = dayjs(`${year} ${month} ${day}`).format('DD MMMM YYYY');
+
+  return date;
+};
+
+const generateCountry = () => {
+  const countries = [
+  `USA`,
+  `Poland`,
+  `Russia`,
+  `Italy`
+  ];
+
+  return countries[getRandomNum(0 , countries.length)];
+};
+
+const generateAgeRating = () => {
+  const ageRatings = [
+  `18+`,
+  `16+`,
+  `12+`,
+  `6+`
+  ];
+
+  return ageRatings[getRandomNum(0 , ageRatings.length)];
+};
+
 export const generateFilm = () => {
   return {
     name: generateName(),
     poster: generatePoster(),
     description: generateDescription(),
-    comments: ``,
+    comments: generateComments(),
     rating: generateRating(),
     productionYear: generateProductionYear(),
     duration: generateDuration(),
     genre: generateGenre(),
-    commentsNumber: ``
+    producer: generateProducer(),
+    writers: generateWriters(),
+    actors: generateActors(),
+    releaseDate: generateReleaseDate(),
+    country: generateCountry(),
+    ageRating: generateAgeRating(),
+    isWatchList: Boolean(getRandomNum(0, 2)),
+    isHistory: Boolean(getRandomNum(0, 2)),
+    isFavorite: Boolean(getRandomNum(0, 2))
   };
 };

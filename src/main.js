@@ -9,8 +9,11 @@ import {createFilmDetails} from "./view/main-content/films/film-detail.js";
 import {createFooterStat} from "./view/footer/footer-stats.js";
 import {generateFilm} from "./mocks/films.js";
 
-const FILMS_NUMBER = 5;
+const FILMS_NUMBER = 20;
 const EXTRA_FILMS_NUMBER = 2;
+
+const films = new Array(FILMS_NUMBER).fill().map(generateFilm);
+console.log(films);
 
 const render = (inputContainer, inputTemplate, place) => {
   inputContainer.insertAdjacentHTML(place, inputTemplate);
@@ -48,9 +51,10 @@ render(filmSection, createFilmsList(topRatedOptions), `beforeend`);
 render(filmSection, createFilmsList(mostCommentedOptions), `beforeend`);
 
 const filmsList = filmSection.querySelector(`.films-list__container`);
-for (let i = 0; i < FILMS_NUMBER; i++) {
-  render(filmsList, createFilm(generateFilm()), `beforeend`);
-}
+films.forEach((item) => {
+  render(filmsList, createFilm(item), `beforeend`);
+});
+
 render(filmsList, createShowMoreBtn(), `afterend`);
 
 const mostCommentedFilmsList = filmSection.querySelector(`.most-commented`);
@@ -62,10 +66,11 @@ for (let i = 0; i < EXTRA_FILMS_NUMBER; i++) {
 }
 
 const footer = document.querySelector(`.footer`);
-render(footer, createFilmDetails(), `afterend`);
+render(footer, createFilmDetails(films[0]), `afterend`);
 
 const footerStat = footer.querySelector(`.footer__statistics`);
-render(footerStat, createFooterStat(), `beforeend`);
+
+render(footerStat, createFooterStat(FILMS_NUMBER), `beforeend`);
 
 const filmDetail = document.querySelector(`.film-details`);
 
@@ -75,7 +80,7 @@ const cardClickHandler = (evt) => {
   if (target.closest(`.film-card__poster`) || target.closest(`.film-card__title`) || target.closest(`.film-card__comments`)) {
     filmDetail.classList.remove(`visually-hidden`);
   }
-  document.addEventListener(`click`, filmDetailCLoseHandler);
+  filmDetail.addEventListener(`click`, filmDetailCLoseHandler);
 };
 
 const filmDetailCLoseHandler = (evt) => {
@@ -87,5 +92,5 @@ const filmDetailCLoseHandler = (evt) => {
   document.removeEventListener(`click`, filmDetailCLoseHandler);
 };
 
-document.addEventListener(`click`, cardClickHandler);
+filmsList.addEventListener(`click`, cardClickHandler);
 
