@@ -4,9 +4,9 @@ const createFilterItemTemplate = (filter) => {
   const {name, count} = filter;
 
   if (name === `all`) {
-    return `<a href="${name}" class="main-navigation__item">${(filterTitle[name] !== undefined) ? filterTitle[name] : name}`;
+    return `<a href="#${name}" class="main-navigation__item">${(filterTitle[name] !== undefined) ? filterTitle[name] : name}`;
   } else {
-    return `<a href="${name}" class="main-navigation__item">${(filterTitle[name] !== undefined) ? filterTitle[name] : name}
+    return `<a href="#${name}" class="main-navigation__item">${(filterTitle[name] !== undefined) ? filterTitle[name] : name}
     <span class="main-navigation__item-count">${count}</span></a>`;
   }
 };

@@ -12,7 +12,7 @@ const generateName = () => {
     `Вот это поворот...не туда`
   ];
 
-  return names[getRandomNum(0, names.length)];
+  return names[getRandomNum(0, names.length - 1)];
 };
 
 const generatePoster = () => {

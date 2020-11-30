@@ -1,9 +1,9 @@
 export const createFilm = (film) => {
   const BRIEF_DESCRIPTION = 139;
 
-  const {name, poster, description, rating, productionYear: year, genre, duration, comments} = film;
+  const {id, name, poster, description, rating, productionYear: year, genre, duration, comments} = film;
 
-  return `<article class="film-card">
+  return `<article class="film-card" data-id="${id}">
       <h3 class="film-card__title">${name}</h3>
       <p class="film-card__rating">${rating}</p>
       <p class="film-card__info">
