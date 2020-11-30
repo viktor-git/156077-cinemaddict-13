@@ -8,12 +8,15 @@ import {createShowMoreBtn} from "./view/main-content/films/show-more-button.js";
 import {createFilmDetails} from "./view/main-content/films/film-detail.js";
 import {createFooterStat} from "./view/footer/footer-stats.js";
 import {generateFilm} from "./mocks/films.js";
+import {generateFilter} from "./mocks/filters.js";
+
+
 
 const FILMS_NUMBER = 20;
 const EXTRA_FILMS_NUMBER = 2;
 
 const films = new Array(FILMS_NUMBER).fill().map(generateFilm);
-console.log(films);
+const filters = generateFilter(films);
 
 const render = (inputContainer, inputTemplate, place) => {
   inputContainer.insertAdjacentHTML(place, inputTemplate);
@@ -23,7 +26,7 @@ const header = document.querySelector(`.header`);
 render(header, createUserProfile(), `beforeend`);
 
 const mainContent = document.querySelector(`.main`);
-render(mainContent, createMenu(), `beforeend`);
+render(mainContent, createMenu(filters), `beforeend`);
 render(mainContent, createSort(), `beforeend`);
 render(mainContent, createFilms(), `beforeend`);
 

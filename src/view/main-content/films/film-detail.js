@@ -1,6 +1,5 @@
-
 export const createFilmDetails = (film) => {
-  console.log(film);
+  console.log(typeof film.releaseDate);
 
   const {name, poster, description, rating, ageRating, productionYear: year, releaseDate, genre, duration, comments, producer, writers, actors, country} = film;
 
@@ -86,7 +85,7 @@ export const createFilmDetails = (film) => {
                       <td class="film-details__cell">${country}</td>
                     </tr>
                     <tr class="film-details__row">
-                      <td class="film-details__term">Genres</td>
+                      <td class="film-details__term">${(genre.length > 1) ? `Genres` : `Genre`}</td>
                       <td class="film-details__cell">
                         ${createGenres(genre)}
                     </tr>

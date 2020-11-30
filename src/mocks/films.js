@@ -1,8 +1,8 @@
-import {getRandomNum} from "../utils/utils.js";
 import * as dayjs from "dayjs";
+import { v4 as uuidv4 } from 'uuid';
+import {getRandomNum} from "../utils/utils.js";
 import {generateComment} from "../mocks/comments.js";
 
-console.log(getRandomNum());
 const generateName = () => {
   const names = [
     `Шальная миля`,
@@ -26,7 +26,7 @@ const generatePoster = () => {
     `the-man-with-the-golden-arm.jpg`
   ];
 
-  return posters[getRandomNum(0, posters.length)];
+  return posters[getRandomNum(0, posters.length - 1)];
 };
 
 const generateDescription = () => {
@@ -36,7 +36,7 @@ const generateDescription = () => {
   const description = [];
 
   for (let i = 0; i < getRandomNum(1, 5); i++) {
-    description.push(texts[getRandomNum(0, texts.length)].trim());
+    description.push(texts[getRandomNum(0, texts.length - 1)].trim());
   }
 
   return description.join(`. `);
@@ -45,7 +45,7 @@ const generateDescription = () => {
 const generateRating = () => {
   const MIN_RAITING = 1;
   const MAX_RAITING = 10;
-  return getRandomNum(MIN_RAITING, MAX_RAITING);
+  return (Math.random() * (MAX_RAITING - MIN_RAITING) + MIN_RAITING).toFixed(1);
 };
 
 const generateProductionYear = () => {
@@ -64,7 +64,7 @@ const generateGenre = () => {
   ];
   const filmGenres =  [];
   for (let i = 0; i < getRandomNum(1, genres.length); i++) {
-    filmGenres.push(genres[getRandomNum(0, genres.length)]);
+    filmGenres.push(genres[getRandomNum(0, genres.length - 1)]);
   }
   return filmGenres;
 };
@@ -98,7 +98,7 @@ const generateProducer = () => {
   `Yacik Man`
   ];
 
-  return producers[getRandomNum(0 , producers.length)];
+  return producers[getRandomNum(0 , producers.length - 1)];
 };
 
 const generateWriters = () => {
@@ -111,7 +111,7 @@ const generateWriters = () => {
 
   const filmWriters = [];
   for (let i = 0; i < getRandomNum(1 , writers.length); i++) {
-    filmWriters.push(writers[getRandomNum(0, writers.length)]);
+    filmWriters.push(writers[getRandomNum(0, writers.length - 1)]);
   }
 
   return filmWriters;
@@ -131,7 +131,7 @@ const generateActors = () => {
 
   const filmActors = [];
   for (let i = 0; i < getRandomNum(1 , actors.length); i++) {
-    filmActors.push(actors[getRandomNum(0, actors.length)]);
+    filmActors.push(actors[getRandomNum(0, actors.length - 1)]);
   }
 
   return filmActors;
@@ -155,7 +155,7 @@ const generateCountry = () => {
   `Italy`
   ];
 
-  return countries[getRandomNum(0 , countries.length)];
+  return countries[getRandomNum(0 , countries.length - 1)];
 };
 
 const generateAgeRating = () => {
@@ -166,11 +166,12 @@ const generateAgeRating = () => {
   `6+`
   ];
 
-  return ageRatings[getRandomNum(0 , ageRatings.length)];
+  return ageRatings[getRandomNum(0 , ageRatings.length - 1)];
 };
 
 export const generateFilm = () => {
   return {
+    id: uuidv4(),
     name: generateName(),
     poster: generatePoster(),
     description: generateDescription(),
@@ -185,8 +186,8 @@ export const generateFilm = () => {
     releaseDate: generateReleaseDate(),
     country: generateCountry(),
     ageRating: generateAgeRating(),
-    isWatchList: Boolean(getRandomNum(0, 2)),
-    isHistory: Boolean(getRandomNum(0, 2)),
-    isFavorite: Boolean(getRandomNum(0, 2))
+    isWatchList: Boolean(getRandomNum(0, 1)),
+    isHistory: Boolean(getRandomNum(0, 1)),
+    isFavorite: Boolean(getRandomNum(0, 1))
   };
 };

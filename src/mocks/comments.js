@@ -10,7 +10,7 @@ const generateEmotion = () => {
     `smile.png`
   ];
 
-   return emotions[getRandomNum(0, emotions.length)];
+   return emotions[getRandomNum(0, emotions.length - 1)];
 };
 
 const generateDate = () => {
@@ -32,7 +32,7 @@ const generateAuthor = () => {
     `Доздраперма`
   ];
 
-   return authors[getRandomNum(0, authors.length)];
+   return authors[getRandomNum(0, authors.length - 1)];
 };
 
 const generateMessage = () => {
@@ -43,7 +43,7 @@ const generateMessage = () => {
     `Almost two hours? Seriously?`
   ];
 
-   return messages[getRandomNum(0, messages.length)];
+   return messages[getRandomNum(0, messages.length - 1)];
 };
 
 
