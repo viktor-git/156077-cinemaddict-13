@@ -1,6 +1,6 @@
 import {getRandomNum} from "../utils/utils.js";
 import * as dayjs from "dayjs";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 const generateEmotion = () => {
   const emotions = [
@@ -10,7 +10,7 @@ const generateEmotion = () => {
     `smile.png`
   ];
 
-   return emotions[getRandomNum(0, emotions.length - 1)];
+  return emotions[getRandomNum(0, emotions.length - 1)];
 };
 
 const generateDate = () => {
@@ -19,7 +19,7 @@ const generateDate = () => {
   const day = getRandomNum(1, 28);
   const hour = getRandomNum(0, 23);
   const minute = getRandomNum(0, 60);
-  const date = dayjs(`${year}-${month}-${day}-${hour}-${minute}`).format('DD MMMM YYYY HH:MM');
+  const date = dayjs(`${year}-${month}-${day}-${hour}-${minute}`).format(`DD MMMM YYYY HH:MM`);
 
   return date;
 };
@@ -32,7 +32,7 @@ const generateAuthor = () => {
     `Доздраперма`
   ];
 
-   return authors[getRandomNum(0, authors.length - 1)];
+  return authors[getRandomNum(0, authors.length - 1)];
 };
 
 const generateMessage = () => {
@@ -43,7 +43,7 @@ const generateMessage = () => {
     `Almost two hours? Seriously?`
   ];
 
-   return messages[getRandomNum(0, messages.length - 1)];
+  return messages[getRandomNum(0, messages.length - 1)];
 };
 
 

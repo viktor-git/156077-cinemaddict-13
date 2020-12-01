@@ -2,7 +2,6 @@ const createGenres = (genre) => {
   const createGenresTemplate = genre.map((item) => {
     return `<span class="film-details__genre">${item}</span>`;
   }).join(``);
-
   return createGenresTemplate;
 };
 
@@ -20,17 +19,15 @@ const createComments = (comments) => {
             <button class="film-details__comment-delete">Delete</button>
           </p>
         </div>
-      </li>
-    `}).join(``);
+      </li>`;
+  }).join(``);
 
   return createCommentsTemplate;
 };
 
-
-
 export const createFilmDetails = (film) => {
 
-  const {name, poster, description, rating, ageRating, productionYear: year, releaseDate, genre, duration, comments, producer, writers, actors, country} = film;
+  const {name, poster, description, rating, ageRating, releaseDate, genre, duration, comments, producer, writers, actors, country} = film;
 
   return `<section class="film-details">
             <form class="film-details__inner" action="" method="get">

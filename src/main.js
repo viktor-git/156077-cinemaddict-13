@@ -55,7 +55,7 @@ render(filmSection, createFilmsList(topRatedOptions), `beforeend`);
 render(filmSection, createFilmsList(mostCommentedOptions), `beforeend`);
 
 const filmsList = filmSection.querySelector(`.films-list__container`);
-films.slice(0, FILMS_START_COUNT).forEach((item, index) => {
+films.slice(0, FILMS_START_COUNT).forEach((item) => {
   render(filmsList, createFilm(item), `beforeend`);
 });
 
@@ -75,13 +75,11 @@ const footerStat = footer.querySelector(`.footer__statistics`);
 render(footerStat, createFooterStat(FILMS_NUMBER), `beforeend`);
 
 const findFilmItem = (filmID) => {
-
-   for (let film of films) {
+  for (let film of films) {
     if (film.id === filmID) {
       return film;
     }
   }
-
   throw new Error(`Фильм с Id:${filmID} не найден`);
 };
 
@@ -111,7 +109,7 @@ let renderedFilmsCount = FILMS_COUNT_PER_STEP;
 
 showMoreBtn.addEventListener(`click`, () => {
 
-  films.slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP).forEach((item, index) => {
+  films.slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP).forEach((item) => {
     render(filmsList, createFilm(item), `beforeend`);
   });
 
@@ -120,6 +118,6 @@ showMoreBtn.addEventListener(`click`, () => {
   if (renderedFilmsCount >= films.length) {
     showMoreBtn.remove();
   }
-})
+});
 
 filmSection.addEventListener(`click`, cardClickHandler);

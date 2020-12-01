@@ -1,5 +1,5 @@
 import * as dayjs from "dayjs";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {getRandomNum} from "../utils/utils.js";
 import {generateComment} from "../mocks/comments.js";
 
@@ -62,7 +62,7 @@ const generateGenre = () => {
     `Lyric`,
     `Erunda`
   ];
-  const filmGenres =  [];
+  const filmGenres = [];
   for (let i = 0; i < getRandomNum(1, genres.length); i++) {
     filmGenres.push(genres[getRandomNum(0, genres.length - 1)]);
   }
@@ -83,34 +83,34 @@ const generateDuration = () => {
 
 const generateComments = () => {
   const comments = [];
-  for (let i = 0; i < getRandomNum(0 , 5); i++) {
+  for (let i = 0; i < getRandomNum(0, 5); i++) {
     comments.push(generateComment());
   }
 
   return comments;
-}
+};
 
 const generateProducer = () => {
   const producers = [
-  `Anthony Mann`,
-  `Anthonya Womann`,
-  `Anatole Mannsteiner`,
-  `Yacik Man`
+    `Anthony Mann`,
+    `Anthonya Womann`,
+    `Anatole Mannsteiner`,
+    `Yacik Man`
   ];
 
-  return producers[getRandomNum(0 , producers.length - 1)];
+  return producers[getRandomNum(0, producers.length - 1)];
 };
 
 const generateWriters = () => {
   const writers = [
-  `Anne Wigton`,
-  `Heinz Herald`,
-  `Richard Wei`,
-  `Herald Anne`
+    `Anne Wigton`,
+    `Heinz Herald`,
+    `Richard Wei`,
+    `Herald Anne`
   ];
 
   const filmWriters = [];
-  for (let i = 0; i < getRandomNum(1 , writers.length); i++) {
+  for (let i = 0; i < getRandomNum(1, writers.length); i++) {
     filmWriters.push(writers[getRandomNum(0, writers.length - 1)]);
   }
 
@@ -120,17 +120,17 @@ const generateWriters = () => {
 
 const generateActors = () => {
   const actors = [
-  `Erich von Stroheim`,
-  `Mary Beth Hughes`,
-  `Dan Duryea`,
-  `Herald Anne`,
-  `Anne Wigton`,
-  `Heinz Herald`,
-  `Richard Wei`
+    `Erich von Stroheim`,
+    `Mary Beth Hughes`,
+    `Dan Duryea`,
+    `Herald Anne`,
+    `Anne Wigton`,
+    `Heinz Herald`,
+    `Richard Wei`
   ];
 
   const filmActors = [];
-  for (let i = 0; i < getRandomNum(1 , actors.length); i++) {
+  for (let i = 0; i < getRandomNum(1, actors.length); i++) {
     filmActors.push(actors[getRandomNum(0, actors.length - 1)]);
   }
 
@@ -142,31 +142,31 @@ const generateReleaseDate = () => {
   const year = getRandomNum(1980, 2020);
   const month = getRandomNum(1, 12);
   const day = getRandomNum(1, 28);
-  const date = dayjs(`${year} ${month} ${day}`).format('DD MMMM YYYY');
+  const date = dayjs(`${year} ${month} ${day}`).format(`DD MMMM YYYY`);
 
   return date;
 };
 
 const generateCountry = () => {
   const countries = [
-  `USA`,
-  `Poland`,
-  `Russia`,
-  `Italy`
+    `USA`,
+    `Poland`,
+    `Russia`,
+    `Italy`
   ];
 
-  return countries[getRandomNum(0 , countries.length - 1)];
+  return countries[getRandomNum(0, countries.length - 1)];
 };
 
 const generateAgeRating = () => {
   const ageRatings = [
-  `18+`,
-  `16+`,
-  `12+`,
-  `6+`
+    `18+`,
+    `16+`,
+    `12+`,
+    `6+`
   ];
 
-  return ageRatings[getRandomNum(0 , ageRatings.length - 1)];
+  return ageRatings[getRandomNum(0, ageRatings.length - 1)];
 };
 
 export const generateFilm = () => {
