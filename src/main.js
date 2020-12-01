@@ -7,7 +7,7 @@ import {createFilm} from "./view/main-content/films/films-item.js";
 import {createShowMoreBtn} from "./view/main-content/films/show-more-button.js";
 import {createFilmDetails} from "./view/main-content/films/film-detail.js";
 import {createFooterStat} from "./view/footer/footer-stats.js";
-import {generateUserStatus} from "./mocks/user-profile.js";
+import {generateUserProfile} from "./mocks/user-profile.js";
 import {generateFilm} from "./mocks/films.js";
 import {generateFilter} from "./mocks/filters.js";
 
@@ -24,7 +24,7 @@ const render = (inputContainer, inputTemplate, place) => {
 };
 
 const header = document.querySelector(`.header`);
-render(header, createUserProfile(generateUserStatus()), `beforeend`);
+render(header, createUserProfile(generateUserProfile()), `beforeend`);
 
 const mainContent = document.querySelector(`.main`);
 render(mainContent, createMenu(filters), `beforeend`);

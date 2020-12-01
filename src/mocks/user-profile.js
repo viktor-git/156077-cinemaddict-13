@@ -1,7 +1,11 @@
 import {getRandomNum} from "../utils/utils.js";
 
-export const generateUserStatus = () => {
-  const watchFilmsNumber = getRandomNum(0, 30);
+
+const generateWatchFilmsNumber = () => {
+  return getRandomNum(0, 30);
+}
+
+const generateUserStatus = (watchFilmsNumber) => {
 
   if (watchFilmsNumber === 0) {
     return ``;
@@ -18,4 +22,11 @@ export const generateUserStatus = () => {
   if (watchFilmsNumber >= 21) {
     return ` movie buff`;
   }
+};
+
+export const generateUserProfile = () => {
+  return {
+    status: generateUserStatus(getRandomNum(0, 30)),
+    watchFilmsCount: generateWatchFilmsNumber()
+  };
 };
