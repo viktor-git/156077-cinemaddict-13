@@ -19,5 +19,9 @@
   },
   "engines": {
     "node": "10"
+  },
+  "dependencies": {
+    "dayjs": "^1.9.6",
+    "uuid": "^8.3.1"
   }
 }
