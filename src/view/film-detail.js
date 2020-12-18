@@ -156,9 +156,4 @@ export default class FilmDetail extends Abstract {
   getTemplate() {
     return createFilmDetails(this._film);
   }
-
-  _clickHandler(evt) {
-    evt.preventDefault();
-    this._callback.click(evt);
-  }
 }

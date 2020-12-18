@@ -29,11 +29,10 @@ export default class Abstract {
 
   _clickHandler(evt) {
     evt.preventDefault();
-    this._callback.click();
+    this._callback.click(evt);
   }
 
   setClickHandler(callback) {
-
     this._callback.click = callback;
     this.getElement().addEventListener(`click`, this._clickHandler);
   }

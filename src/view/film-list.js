@@ -17,9 +17,4 @@ export default class FilmList extends Abstract {
   getTemplate() {
     return createFilmsList(this._filmOptions);
   }
-
-  _clickHandler(evt) {
-    evt.preventDefault();
-    this._callback.click(evt);
-  }
 }

@@ -12,6 +12,7 @@ import {generateUserProfile} from "./mocks/user-profile.js";
 import {generateFilm} from "./mocks/films.js";
 import {generateFilter} from "./mocks/filters.js";
 import {render, remove} from "./utils/render.js";
+import {filmSectionOptions, topRatedOptions, mostCommentedOptions} from "./utils/consts.js";
 
 const FILMS_NUMBER = 20;
 const FILMS_START_COUNT = 5;
@@ -19,22 +20,6 @@ const FILMS_COUNT_PER_STEP = 5;
 const EXTRA_FILMS_NUMBER = 2;
 
 const footer = document.querySelector(`.footer`);
-const filmSectionOptions = {
-  sectionTitle: `All movies. Upcoming`,
-  hidden: `visually-hidden`
-};
-
-const topRatedOptions = {
-  sectionTitle: `Top rated`,
-  sectionClass: `films-list--extra`,
-  specialClassName: `top-rated`
-};
-
-const mostCommentedOptions = {
-  sectionTitle: `Most commented`,
-  sectionClass: `films-list--extra`,
-  specialClassName: `most-commented`
-};
 
 const films = new Array(FILMS_NUMBER).fill().map(generateFilm);
 const filters = generateFilter(films);
