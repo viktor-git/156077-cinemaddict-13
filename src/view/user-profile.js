@@ -1,4 +1,4 @@
-import {createElement} from "../../utils/utils.js";
+import Abstract from "./abstract.js";
 
 const createUserProfile = ({status}) => {
 
@@ -8,26 +8,13 @@ const createUserProfile = ({status}) => {
   </section>`;
 };
 
-export default class UserProfile {
+export default class UserProfile extends Abstract {
   constructor(user) {
+    super();
     this._user = user;
-
-    this._element = null;
   }
 
   getTemplate() {
     return createUserProfile(this._user);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

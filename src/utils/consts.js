@@ -4,3 +4,9 @@ export const filterTitle = {
   history: `History`,
   favorites: `Favorites`
 };
+
+export const sortTitles = [
+  `Sort by default`,
+  `Sort by date`,
+  `Sort by rating`
+];

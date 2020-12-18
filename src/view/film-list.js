@@ -1,4 +1,4 @@
-import {createElement} from "../../../utils/utils.js";
+import Abstract from "./abstract.js";
 
 const createFilmsList = ({sectionTitle = ``, sectionClass = ``, specialClassName = ``, hidden = ``}) => {
   return `<section class="films-list ${sectionClass}">
@@ -8,26 +8,18 @@ const createFilmsList = ({sectionTitle = ``, sectionClass = ``, specialClassName
   </section>`;
 };
 
-export default class FilmList {
+export default class FilmList extends Abstract {
   constructor(options) {
+    super();
     this._filmOptions = options;
-
-    this._element = null;
   }
 
   getTemplate() {
     return createFilmsList(this._filmOptions);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  _clickHandler(evt) {
+    evt.preventDefault();
+    this._callback.click(evt);
   }
 }
