@@ -11,7 +11,8 @@ import NoFilms from "./view/no-films.js";
 import {generateUserProfile} from "./mocks/user-profile.js";
 import {generateFilm} from "./mocks/films.js";
 import {generateFilter} from "./mocks/filters.js";
-import {render, remove} from "./utils/render.js";
+import {render, remove, renderElement} from "./utils/render.js";
+import {findItemById} from "./utils/utils.js";
 import {filmSectionOptions, topRatedOptions, mostCommentedOptions} from "./utils/consts.js";
 
 const FILMS_NUMBER = 20;
@@ -42,11 +43,8 @@ if (!films.length) {
   render(filmSectionComponent, new NoFilms(), `beforeend`);
 } else {
   render(filmSectionComponent, filmListComponent, `beforeend`);
-  render(filmSectionComponent, topRatedListComponent, `beforeend`);
-  render(filmSectionComponent, mostCommentedListComponent, `beforeend`);
 
   const filmsList = filmListComponent.getElement().querySelector(`.films-list__container `);
-
   films.slice(0, FILMS_START_COUNT).forEach((film) => {
     render(filmsList, new Film(film), `beforeend`);
   });
@@ -54,22 +52,16 @@ if (!films.length) {
   const showMoreBtnCompoment = new ShowMoreBtn();
   render(filmsList, showMoreBtnCompoment, `afterend`);
 
-  const mostCommentedFilmsList = mostCommentedListComponent.getElement().querySelector(`.most-commented`);
+  render(filmSectionComponent, topRatedListComponent, `beforeend`);
   const topRatedFilmsList = topRatedListComponent.getElement().querySelector(`.top-rated`);
+
+  render(filmSectionComponent, mostCommentedListComponent, `beforeend`);
+  const mostCommentedFilmsList = mostCommentedListComponent.getElement().querySelector(`.most-commented`);
 
   for (let i = 0; i < EXTRA_FILMS_NUMBER; i++) {
     render(mostCommentedFilmsList, new Film(films[i]), `beforeend`);
     render(topRatedFilmsList, new Film(films[i]), `beforeend`);
   }
-
-  const findFilmItem = (filmID) => {
-    for (let film of films) {
-      if (film.id === filmID) {
-        return film;
-      }
-    }
-    throw new Error(`Фильм с Id:${filmID} не найден`);
-  };
 
   let filmDetailComponent = null;
   const escCLoseHandler = (evt) => {
@@ -90,7 +82,7 @@ if (!films.length) {
     if (target.closest(`.film-card__poster`) || target.closest(`.film-card__title`) || target.closest(`.film-card__comments`)) {
       const filmID = target.closest(`.film-card`).dataset.id;
 
-      filmDetailComponent = new FilmDetail(findFilmItem(filmID));
+      filmDetailComponent = new FilmDetail(findItemById(films, filmID));
 
       render(footer, filmDetailComponent, `afterend`);
 

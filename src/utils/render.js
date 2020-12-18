@@ -1,7 +1,6 @@
 import AbstractView from "../view/abstract.js";
 
 const render = (container, element, place) => {
-
   if (container instanceof AbstractView) {
     container = container.getElement();
   }
