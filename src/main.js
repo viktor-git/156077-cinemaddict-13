@@ -60,7 +60,7 @@ if (!films.length) {
   render(filmSectionComponent, topRatedListComponent, `beforeend`);
   render(filmSectionComponent, mostCommentedListComponent, `beforeend`);
 
-  const filmsList = mainContent.querySelector(`.films-list__container `);
+  const filmsList = filmListComponent.getElement().querySelector(`.films-list__container `);
 
   films.slice(0, FILMS_START_COUNT).forEach((film) => {
     render(filmsList, new Film(film), `beforeend`);
@@ -69,8 +69,8 @@ if (!films.length) {
   const showMoreBtnCompoment = new ShowMoreBtn();
   render(filmsList, showMoreBtnCompoment, `afterend`);
 
-  const mostCommentedFilmsList = mainContent.querySelector(`.most-commented`);
-  const topRatedFilmsList = mainContent.querySelector(`.top-rated`);
+  const mostCommentedFilmsList = mostCommentedListComponent.getElement().querySelector(`.most-commented`);
+  const topRatedFilmsList = topRatedListComponent.getElement().querySelector(`.top-rated`);
 
   for (let i = 0; i < EXTRA_FILMS_NUMBER; i++) {
     render(mostCommentedFilmsList, new Film(films[i]), `beforeend`);
