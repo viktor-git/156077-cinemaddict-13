@@ -4,3 +4,26 @@ export const filterTitle = {
   history: `History`,
   favorites: `Favorites`
 };
+
+export const sortTitles = [
+  `Sort by default`,
+  `Sort by date`,
+  `Sort by rating`
+];
+
+export const filmSectionOptions = {
+  sectionTitle: `All movies. Upcoming`,
+  hidden: `visually-hidden`
+};
+
+export const topRatedOptions = {
+  sectionTitle: `Top rated`,
+  sectionClass: `films-list--extra`,
+  specialClassName: `top-rated`
+};
+
+export const mostCommentedOptions = {
+  sectionTitle: `Most commented`,
+  sectionClass: `films-list--extra`,
+  specialClassName: `most-commented`
+};

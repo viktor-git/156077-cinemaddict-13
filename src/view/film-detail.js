@@ -1,4 +1,4 @@
-import {createElement} from "../../../utils/utils.js";
+import Abstract from "./abstract.js";
 
 const createGenres = (genre) => {
   const createGenresTemplate = genre.map((item) => {
@@ -147,26 +147,13 @@ const createFilmDetails = (film) => {
 
 };
 
-export default class FilmDetail {
+export default class FilmDetail extends Abstract {
   constructor(film) {
+    super();
     this._film = film;
-
-    this._element = null;
   }
 
   getTemplate() {
     return createFilmDetails(this._film);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
