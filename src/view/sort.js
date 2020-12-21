@@ -1,4 +1,3 @@
-import {sortTitles} from "../utils/consts.js";
 import Abstract from "./abstract.js";
 
 const createSortItemTemplate = (sortTitle) => {
@@ -16,7 +15,13 @@ const createSortTemplate = (sorts) => {
 };
 
 export default class Sort extends Abstract {
+
+  constructor(sortTitle) {
+    super();
+    this._sortTitles = sortTitle;
+  }
+
   getTemplate() {
-    return createSortTemplate(sortTitles);
+    return createSortTemplate(this._sortTitles);
   }
 }

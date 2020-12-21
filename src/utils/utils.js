@@ -12,14 +12,14 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-  const findItemById = (array, ID) => {
-    for (let item of array) {
-      if (item.id === ID) {
-        return item;
-      }
+const findItemById = (array, ID) => {
+  for (let item of array) {
+    if (item.id === ID) {
+      return item;
     }
-    throw new Error(`Фильм с Id:${ID} не найден`);
-  };
+  }
+  throw new Error(`Фильм с Id:${ID} не найден`);
+};
 
 export {getRandomNum, createElement, findItemById};
 

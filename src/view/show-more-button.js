@@ -7,7 +7,7 @@ export const createShowMoreBtn = () => {
 export default class ShowMoreBtn extends Abstract {
 
   getTemplate() {
-    return createShowMoreBtn(this._filmList);
+    return createShowMoreBtn();
   }
 }
 

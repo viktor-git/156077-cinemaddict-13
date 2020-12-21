@@ -11,9 +11,9 @@ import NoFilms from "./view/no-films.js";
 import {generateUserProfile} from "./mocks/user-profile.js";
 import {generateFilm} from "./mocks/films.js";
 import {generateFilter} from "./mocks/filters.js";
-import {render, remove, renderElement} from "./utils/render.js";
+import {render, remove} from "./utils/render.js";
 import {findItemById} from "./utils/utils.js";
-import {filmSectionOptions, topRatedOptions, mostCommentedOptions} from "./utils/consts.js";
+import {sortTitles, filmSectionOptions, topRatedOptions, mostCommentedOptions} from "./utils/consts.js";
 
 const FILMS_NUMBER = 20;
 const FILMS_START_COUNT = 5;
@@ -30,7 +30,7 @@ render(header, new UserProfile(generateUserProfile()), `beforeend`);
 
 const mainContent = document.querySelector(`.main`);
 render(mainContent, new Menu(filters), `beforeend`);
-render(mainContent, new Sort(), `beforeend`);
+render(mainContent, new Sort(sortTitles), `beforeend`);
 
 const filmSectionComponent = new FilmSection();
 render(mainContent, filmSectionComponent, `beforeend`);
