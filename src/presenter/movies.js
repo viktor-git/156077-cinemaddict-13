@@ -1,4 +1,3 @@
-import Menu from "../view/menu.js";
 import Sort from "../view/sort.js";
 import FilmSection from "../view/films.js";
 import FilmList from "../view/film-list.js";
@@ -17,21 +16,15 @@ const EXTRA_FILMS_NUMBER = 2;
 export default class MoviesList {
   constructor(filmsContainer) {
     this._filmsContainer = filmsContainer;
-    this._menu = new Menu();
     this._sort = new Sort(sortTitles);
     this._filmSection = new FilmSection();
     this._filmList = new FilmList(filmSectionOptions);
-    this._film = new Film();
     this._showMoreBtn = new ShowMoreBtn();
-    this._noFilms = new noFilms();
+    this._noFilms = new NoFilms();
   }
 
   init(films) {
     this._films = films.slice();
-
-    this._renderMenu();
-    render(this._filmsContainer, this._filmSection, `beforeend`);
-
     this._renderFilmList();
   }
 
@@ -39,16 +32,13 @@ export default class MoviesList {
     render(this._filmsContainer, this._noFilms, `beforeend`);
   }
 
-  _renderMenu() {
-    render(this._filmsContainer, this._menu, `beforeend`);
-  }
-
   _renderSort() {
-    render(this._filmsContainer, this._sort, `beforeend`);
+    render(this._filmSection, this._sort, `beforebegin`);
   }
 
-  _renderFilm(film) {
-    this._filmsListContainer = this._filmList.getElement().querySelector(`.films-list__container `);
+  _renderFilm(film, filmListContainer) {
+
+    const filmComponent = new Film(film);
 
     let filmDetailComponent = null;
     const escCLoseHandler = (evt) => {
@@ -71,15 +61,13 @@ export default class MoviesList {
 
         filmDetailComponent = new FilmDetail(findItemById(this._films, filmID));
 
-        render(footer, filmDetailComponent, `afterend`);
+        render(filmListContainer, filmDetailComponent, `afterend`);
 
         document.body.classList.add(`hide-overflow`);
 
         filmDetailComponent.setClickHandler(filmDetailCLoseHandler);
         document.addEventListener(`keydown`, escCLoseHandler);
       }
-
-      this._filmListContainer.setClickHandler(cardClickHandler);
     };
 
     const filmDetailCLoseHandler = (evt) => {
@@ -91,14 +79,43 @@ export default class MoviesList {
         document.body.classList.remove(`hide-overflow`);
       }
     };
+    filmListContainer.setClickHandler(cardClickHandler);
 
-    render(this._filmsListContainer, this._film(film), `beforeend`);
+    render(filmListContainer.getContainer(`.films-list__container`), filmComponent, `beforeend`);
   }
 
-  _renderFilms(from, to) {
+  _renderFilms(from, to, filmListContainer) {
     this._films.slice(from, to).forEach((film) => {
-      this._renderFilm(film);
+      this._renderFilm(film, filmListContainer);
     });
+  }
+
+  _renderFilmList() {
+    if (!this._films.length) {
+      this._renderNoFilms();
+      return;
+    }
+
+    render(this._filmsContainer, this._filmSection, `beforeend`);
+    render(this._filmSection, this._filmList, `beforeend`);
+
+
+    this._renderSort();
+    this._renderFilms(0, Math.min(this._films.length, FILMS_START_COUNT), this._filmList);
+
+    if (this._films.length > FILMS_START_COUNT) {
+      this._renderShowMoreBtn();
+    }
+
+    this._renderExtraFilmList(topRatedOptions);
+    this._renderExtraFilmList(mostCommentedOptions);
+  }
+
+  _renderExtraFilmList(extraOptions) {
+    const extraFilmsSection = new FilmList(extraOptions);
+
+    render(this._filmSection, extraFilmsSection, `beforeend`);
+    this._renderFilms(0, EXTRA_FILMS_NUMBER, extraFilmsSection);
   }
 
   _renderShowMoreBtn() {
@@ -108,7 +125,7 @@ export default class MoviesList {
     this._showMoreBtn.setClickHandler(() => {
 
       this._films.slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP).forEach((film) => {
-        render(this._filmsListContainer, this._film(film), `beforeend`);
+        this._renderFilm(film, this._filmList);
       });
 
       renderedFilmsCount += FILMS_COUNT_PER_STEP;
@@ -119,36 +136,5 @@ export default class MoviesList {
     });
   }
 
-  _renderFilmList() {
-    if (!this._films.length) {
-      this._renderNoFilms();
-      return;
-    }
-
-    this._renderSort();
-    this._renderFilms(0, Math.min(this._films.length, FILMS_START_COUNT));
-
-    if (this._films.length > FILMS_START_COUNT) {
-      this._renderShowMoreBtn();
-    }
-
-  }
-
 }
 
-export class Movie {
-  constructor(filmContainer) {
-    this._filmContainer = filmContainer;
-    this._film = new Film();
-    this._filmDetail = new FilmDetail();
-  }
-
-  _renderFilm() {
-
-  }
-
-  _renderDetailFilm() {
-
-  }
-
-}

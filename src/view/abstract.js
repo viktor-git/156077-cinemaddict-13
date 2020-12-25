@@ -7,6 +7,7 @@ export default class Abstract {
     }
 
     this._element = null;
+    this._filmsListContainer = null;
     this._callback = {};
     this._clickHandler = this._clickHandler.bind(this);
   }
@@ -25,6 +26,13 @@ export default class Abstract {
 
   removeElement() {
     this._element = null;
+  }
+
+  getContainer(elementToSearch) {
+    if (!this._element) {
+      throw new Error(`this._element is not Defined`);
+    }
+    return this._filmsListContainer = this._element.querySelector(elementToSearch);
   }
 
   _clickHandler(evt) {
