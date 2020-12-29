@@ -21,6 +21,8 @@ export default class MoviesList {
     this._filmList = new FilmList(filmSectionOptions);
     this._showMoreBtn = new ShowMoreBtn();
     this._noFilms = new NoFilms();
+    this._renderedMoviesCount = FILMS_COUNT_PER_STEP;
+    this._handleLoadMoreBtnClick = this._handleLoadMoreBtnClick.bind(this);
   }
 
   init(films) {
@@ -118,22 +120,22 @@ export default class MoviesList {
     this._renderFilms(0, EXTRA_FILMS_NUMBER, extraFilmsSection);
   }
 
-  _renderShowMoreBtn() {
-    render(this._filmList, this._showMoreBtn, `afterend`);
-
-    let renderedFilmsCount = FILMS_COUNT_PER_STEP;
-    this._showMoreBtn.setClickHandler(() => {
-
-      this._films.slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP).forEach((film) => {
+  _handleLoadMoreBtnClick() {
+    this._films.slice(this._renderedMoviesCount, this._renderedMoviesCount + FILMS_COUNT_PER_STEP).forEach((film) => {
         this._renderFilm(film, this._filmList);
       });
 
-      renderedFilmsCount += FILMS_COUNT_PER_STEP;
+    this._renderedMoviesCount += FILMS_COUNT_PER_STEP;
 
-      if (renderedFilmsCount >= this._films.length) {
-        remove(this._showMoreBtn);
-      }
-    });
+    if (this._renderedMoviesCount >= this._films.length) {
+      remove(this._showMoreBtn);
+    }
+  }
+
+  _renderShowMoreBtn() {
+    render(this._filmList, this._showMoreBtn, `afterend`);
+
+    this._showMoreBtn.setClickHandler(this._handleLoadMoreBtnClick);
   }
 
 }
