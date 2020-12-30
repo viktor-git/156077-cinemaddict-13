@@ -1,4 +1,4 @@
-import MoviesListPresenter from "./presenter/movies.js";
+import MoviesListPresenter from "./presenter/movies-list.js";
 import UserProfile from "./view/user-profile.js";
 import Menu from "./view/menu.js";
 import FilmsNumber from "./view/footer-stats.js";
@@ -19,7 +19,6 @@ const mainContent = document.querySelector(`.main`);
 render(mainContent , new Menu(filters), `beforeend`);
 
 const filmsPresenter = new MoviesListPresenter(mainContent);
-
 
 const footer = document.querySelector(`.footer`);
 const footerStat = footer.querySelector(`.footer__statistics`);
