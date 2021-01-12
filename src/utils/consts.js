@@ -5,11 +5,11 @@ export const filterTitle = {
   favorites: `Favorites`
 };
 
-export const sortTitles = [
-  `Sort by default`,
-  `Sort by date`,
-  `Sort by rating`
-];
+export const SortType = {
+  DEFAULT: `Sort by default`,
+  DATE: `Sort by date`,
+  RATING: `Sort by rating`
+};
 
 export const filmSectionOptions = {
   sectionTitle: `All movies. Upcoming`,

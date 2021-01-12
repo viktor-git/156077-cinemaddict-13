@@ -35,5 +35,13 @@ const updateItem = (items, update) => {
   ];
 };
 
-export {getRandomNum, createElement, findItemById, updateItem};
+const sortByDate = (filmA, filmB) => {
+  return filmB.releaseDate.split(` `)[filmA.releaseDate.split(` `).length -1] - filmA.releaseDate.split(` `)[filmB.releaseDate.split(` `).length -1];
+}
+
+const sortByRating= (filmA, filmB) => {
+  return filmB.rating - filmA.rating;
+}
+
+export {getRandomNum, createElement, findItemById, updateItem, sortByDate, sortByRating};
 
