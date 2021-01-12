@@ -5,7 +5,7 @@ import FilmsNumber from "./view/footer-stats.js";
 import {generateUserProfile} from "./mocks/user-profile.js";
 import {generateFilm} from "./mocks/films.js";
 import {generateFilter} from "./mocks/filters.js";
-import {render, remove} from "./utils/render.js";
+import {render} from "./utils/render.js";
 
 const FILMS_NUMBER = 20;
 
@@ -16,7 +16,7 @@ const header = document.querySelector(`.header`);
 render(header, new UserProfile(generateUserProfile()), `beforeend`);
 
 const mainContent = document.querySelector(`.main`);
-render(mainContent , new Menu(filters), `beforeend`);
+render(mainContent, new Menu(filters), `beforeend`);
 
 const filmsPresenter = new MoviesListPresenter(mainContent);
 

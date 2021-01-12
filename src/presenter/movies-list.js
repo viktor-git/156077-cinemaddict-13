@@ -4,8 +4,8 @@ import FilmSection from "../view/films.js";
 import FilmList from "../view/film-list.js";
 import ShowMoreBtn from "../view/show-more-button.js";
 import NoFilms from "../view/no-films.js";
-import {SortType, filmSectionOptions, topRatedOptions, mostCommentedOptions} from "../utils/consts.js";
-import {render, remove, replace} from "../utils/render.js";
+import {filmSectionOptions} from "../utils/consts.js";
+import {render, remove} from "../utils/render.js";
 import {updateItem, sortByRating, sortByDate} from "../utils/utils.js";
 
 const FILMS_START_COUNT = 5;
@@ -34,13 +34,11 @@ export default class MoviesList {
 
   init(films) {
     this._films = films.slice();
-    this._sourcedFilms= films.slice();
+    this._sourcedFilms = films.slice();
 
     this._renderFilmList();
-    console.log(this._extraFilmRendered);
-
-    //this._renderExtraFilmList(topRatedOptions);
-    //this._renderExtraFilmList(mostCommentedOptions);
+    //  this._renderExtraFilmList(topRatedOptions);
+    //  this._renderExtraFilmList(mostCommentedOptions);
 
   }
 
@@ -65,7 +63,6 @@ export default class MoviesList {
   }
 
   _sortTasks(sortType) {
-    console.log(sortType);
     switch (sortType) {
       case `DATE`:
         this._films.sort(sortByDate);
@@ -145,8 +142,8 @@ export default class MoviesList {
 
   _handleLoadMoreBtnClick() {
     this._films.slice(this._renderedMoviesCount, this._renderedMoviesCount + FILMS_COUNT_PER_STEP).forEach((film) => {
-        this._renderFilm(film, this._filmList);
-      });
+      this._renderFilm(film, this._filmList);
+    });
 
     this._renderedMoviesCount += FILMS_COUNT_PER_STEP;
 

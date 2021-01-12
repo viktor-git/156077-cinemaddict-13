@@ -32,7 +32,9 @@ export default class Abstract {
     if (!this._element) {
       throw new Error(`this._element is not Defined`);
     }
-    return this._filmsListContainer = this._element.querySelector(elementToSearch);
+    this._filmsListContainer = this._element.querySelector(elementToSearch);
+
+    return this._filmsListContainer;
   }
 
   _clickHandler(evt) {

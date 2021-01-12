@@ -36,12 +36,12 @@ const updateItem = (items, update) => {
 };
 
 const sortByDate = (filmA, filmB) => {
-  return filmB.releaseDate.split(` `)[filmA.releaseDate.split(` `).length -1] - filmA.releaseDate.split(` `)[filmB.releaseDate.split(` `).length -1];
-}
+  return filmB.releaseDate.split(` `)[filmA.releaseDate.split(` `).length - 1] - filmA.releaseDate.split(` `)[filmB.releaseDate.split(` `).length - 1];
+};
 
-const sortByRating= (filmA, filmB) => {
+const sortByRating = (filmA, filmB) => {
   return filmB.rating - filmA.rating;
-}
+};
 
 export {getRandomNum, createElement, findItemById, updateItem, sortByDate, sortByRating};
 

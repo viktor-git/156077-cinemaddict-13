@@ -5,12 +5,12 @@ const createSortItemTemplate = (sortType, sortTitle) => {
   return `<li><a href="#" data-sort-type="${sortType}" class="sort__button ">${sortTitle}</a></li>`;
 };
 
-const createSortTemplate = (SortType) => {
+const createSortTemplate = (sortType) => {
 
   const sortTemplate = [];
 
-  for (const [key, value] of Object.entries(SortType)) {
-   sortTemplate.push(createSortItemTemplate(key, value));
+  for (const [key, value] of Object.entries(sortType)) {
+    sortTemplate.push(createSortItemTemplate(key, value));
   }
 
   return `<ul class="sort">

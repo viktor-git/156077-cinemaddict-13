@@ -1,7 +1,6 @@
 import Film from "../view/films-item.js";
 import FilmDetail from "../view/film-detail.js";
 import {render, remove, replace} from "../utils/render.js";
-import {updateItem} from "../utils/utils.js";
 
 const Mode = {
   DEFAULT: `DEFAULT`,
@@ -81,7 +80,6 @@ export default class Movie {
 
       document.addEventListener(`keydown`, this._escKeyDownHandler);
     }
-    console.log(this._mode);
 
   }
 
@@ -137,7 +135,7 @@ export default class Movie {
   }
 
   _escKeyDownHandler(evt) {
-   if (evt.key === `Escape` || evt.key === `Esc`) {
+    if (evt.key === `Escape` || evt.key === `Esc`) {
       evt.preventDefault();
       remove(this._filmDetailComponent);
       document.removeEventListener(`keydown`, this._escKeyDownHandler);
