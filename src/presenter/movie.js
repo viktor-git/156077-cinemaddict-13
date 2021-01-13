@@ -18,12 +18,13 @@ export default class Movie {
     this._mode = Mode.DEFAULT;
 
     this._handleFilmClick = this._handleFilmClick.bind(this);
+    this._handleDetailFilmClick = this._handleDetailFilmClick.bind(this);
 
     this._handleWatchListClick = this._handleWatchListClick.bind(this);
     this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
     this._handleHistoryClick = this._handleHistoryClick.bind(this);
 
-    this._filmDetailCloseClick = this._filmDetailCloseClick.bind(this);
+    this._handleDetailCloseClick = this._handleDetailCloseClick.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
@@ -37,10 +38,16 @@ export default class Movie {
     this._filmDetailComponent = new FilmDetail(this._film);
 
     this._filmComponent.setClickHandler(this._handleFilmClick);
+    this._filmDetailComponent.setClickHandler(this._handleDetailFilmClick);
 
-    this._filmComponent.setFavoriteClickHandler(this._handleFavoriteClick);
     this._filmComponent.setWatchListClickHandler(this._handleWatchListClick);
+    this._filmComponent.setFavoriteClickHandler(this._handleFavoriteClick);
     this._filmComponent.setHistoryClickHandler(this._handleHistoryClick);
+
+    this._filmDetailComponent.setFavoriteClickHandler(this._handleFavoriteClick);
+    this._filmDetailComponent.setWatchListClickHandler(this._handleWatchListClick);
+    this._filmDetailComponent.setHistoryClickHandler(this._handleHistoryClick);
+    this._filmDetailComponent.setCloseClickHandler(this._handleDetailCloseClick);
 
     if (prevFilmComponent === null || prevFilmDetailComponent === null) {
       render(this._filmListContainer.getContainer(`.films-list__container`), this._filmComponent, `beforeend`);
@@ -52,6 +59,7 @@ export default class Movie {
     }
 
     if (this._mode === Mode.EDITING) {
+      replace(this._filmComponent, prevFilmComponent);
       replace(this._filmDetailComponent, prevFilmDetailComponent);
     }
 
@@ -65,9 +73,9 @@ export default class Movie {
     remove(this._filmDetailComponent);
   }
 
-  _handleFilmClick(evt, film) {
+  _handleFilmClick(evt) {
     const target = evt.target;
-    this._changeData(film);
+    // this._changeData(film);
     this._changeMode();
 
     if (target.closest(`.film-card__poster`) || target.closest(`.film-card__title`) || target.closest(`.film-card__comments`)) {
@@ -76,16 +84,20 @@ export default class Movie {
       render(this._filmListContainer.getContainer(`.films-list__container`), this._filmDetailComponent, `beforeend`);
 
       document.body.classList.add(`hide-overflow`);
-      this._filmDetailComponent.setClickHandler(this._filmDetailCloseClick);
 
       document.addEventListener(`keydown`, this._escKeyDownHandler);
     }
 
   }
 
+  _handleDetailFilmClick() {
+    // this._changeData(film);
+  }
+
   _handleFavoriteClick() {
 
     this._changeData(
+
         Object.assign(
             {},
             this._film,
@@ -94,11 +106,9 @@ export default class Movie {
             }
         )
     );
-
   }
 
   _handleWatchListClick() {
-
     this._changeData(
         Object.assign(
             {},
@@ -122,16 +132,11 @@ export default class Movie {
     );
   }
 
-  _filmDetailCloseClick(evt) {
-    const target = evt.target;
-
-    if (target.closest(`.film-details__close-btn`) || target.closest(`.film-details`) === null) {
-      remove(this._filmDetailComponent);
-      document.removeEventListener(`click`, this._escKeyDownHandler);
-      document.body.classList.remove(`hide-overflow`);
-      this._mode = Mode.DEFAULT;
-    }
-
+  _handleDetailCloseClick() {
+    remove(this._filmDetailComponent);
+    document.removeEventListener(`click`, this._escKeyDownHandler);
+    document.body.classList.remove(`hide-overflow`);
+    this._mode = Mode.DEFAULT;
   }
 
   _escKeyDownHandler(evt) {
@@ -140,22 +145,23 @@ export default class Movie {
       remove(this._filmDetailComponent);
       document.removeEventListener(`keydown`, this._escKeyDownHandler);
       document.body.classList.remove(`hide-overflow`);
+      this._mode = Mode.DEFAULT;
     }
   }
 
   resetView() {
     if (this._mode !== Mode.DEFAULT) {
-      this._replaceFormToCard();
+      this._replaceDetailToPreview();
     }
   }
 
-  _replaceCardToForm() {
+  _replacePreviewToDetail() {
     replace(this._filmDetailComponent, this._filmComponent);
     document.addEventListener(`keydown`, this._escKeyDownHandler);
     this._mode = Mode.EDITING;
   }
 
-  _replaceFormToCard() {
+  _replaceDetailToPreview() {
     replace(this._filmComponent, this._filmDetailComponent);
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
     remove(this._filmDetailComponent);

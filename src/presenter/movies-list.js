@@ -58,11 +58,12 @@ export default class MoviesList {
   }
 
   _handleFilmChange(updatedFilm) {
+
     this._films = updateItem(this._films, updatedFilm);
     this._filmPresenter[updatedFilm.id].init(updatedFilm);
   }
 
-  _sortTasks(sortType) {
+  _sortFilms(sortType) {
     switch (sortType) {
       case `DATE`:
         this._films.sort(sortByDate);
@@ -82,7 +83,7 @@ export default class MoviesList {
       return;
     }
 
-    this._sortTasks(sortType);
+    this._sortFilms(sortType);
     this._clearFilmList();
     this._renderFilmList();
   }

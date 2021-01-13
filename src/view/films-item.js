@@ -28,6 +28,8 @@ export default class Film extends Abstract {
   constructor(film) {
     super();
     this._film = film;
+
+    this._clickHandler = this._clickHandler.bind(this);
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
     this._watchListClickHandler = this._watchListClickHandler.bind(this);
     this._historyClickHandler = this._historyClickHandler.bind(this);
@@ -64,12 +66,12 @@ export default class Film extends Abstract {
 
   setWatchListClickHandler(callback) {
     this._callback.watchListClick = callback;
-    this.getContainer(`.film-card__controls-item--add-to-watchlist`).addEventListener(`click`, this._watchListClickHandle);
+    this.getContainer(`.film-card__controls-item--add-to-watchlist`).addEventListener(`click`, this._watchListClickHandler);
   }
 
   setHistoryClickHandler(callback) {
     this._callback.historyClick = callback;
-    this.getContainer(`.film-card__controls-item--mark-as-watched`).addEventListener(`click`, this._historyClickHandle);
+    this.getContainer(`.film-card__controls-item--mark-as-watched`).addEventListener(`click`, this._historyClickHandler);
   }
 }
 
