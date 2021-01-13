@@ -152,6 +152,7 @@ export default class FilmDetail extends Abstract {
     super();
     this._film = film;
 
+    this._clickHandler = this._clickHandler.bind(this);
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
     this._watchListClickHandler = this._watchListClickHandler.bind(this);
     this._historyClickHandler = this._historyClickHandler.bind(this);
@@ -161,6 +162,11 @@ export default class FilmDetail extends Abstract {
 
   getTemplate() {
     return createFilmDetails(this._film);
+  }
+
+  _clickHandler(evt) {
+    evt.preventDefault();
+    this._callback.click(evt, this._film);
   }
 
   _closeClickHandler(evt) {
@@ -178,9 +184,19 @@ export default class FilmDetail extends Abstract {
     this._callback.favoriteClick();
   }
 
+  setFavoriteClickHandler(callback) {
+    this._callback.favoriteClick = callback;
+    this.getContainer(`.film-details__control-label--favorite`).addEventListener(`click`, this._favoriteClickHandler);
+  }
+
   _watchListClickHandler(evt) {
     evt.preventDefault();
     this._callback.watchListClick();
+  }
+
+  setWatchListClickHandler(callback) {
+    this._callback.watchListClick = callback;
+    this.getContainer(`.film-details__control-label--watchlist`).addEventListener(`click`, this._watchListClickHandler);
   }
 
   _historyClickHandler(evt) {
@@ -188,18 +204,8 @@ export default class FilmDetail extends Abstract {
     this._callback.historyClick();
   }
 
-  setFavoriteClickHandler(callback) {
-    this._callback.favoriteClick = callback;
-    this.getContainer(`.film-details__control-label--favorite`).addEventListener(`click`, this._favoriteClickHandler);
-  }
-
-  setWatchListClickHandler(callback) {
-    this._callback.watchListClick = callback;
-    this.getContainer(`.film-details__control-label--watchlist`).addEventListener(`click`, this._watchListClickHandle);
-  }
-
   setHistoryClickHandler(callback) {
     this._callback.historyClick = callback;
-    this.getContainer(`.film-details__control-label--watched`).addEventListener(`click`, this._historyClickHandle);
+    this.getContainer(`.film-details__control-label--watched`).addEventListener(`click`, this._historyClickHandler);
   }
 }
