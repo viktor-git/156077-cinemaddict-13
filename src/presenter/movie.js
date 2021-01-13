@@ -23,7 +23,7 @@ export default class Movie {
     this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
     this._handleHistoryClick = this._handleHistoryClick.bind(this);
 
-    this._filmDetailCloseClick = this._filmDetailCloseClick.bind(this);
+    this._handleDetailCloseClick = this._handleDetailCloseClick.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
@@ -75,8 +75,12 @@ export default class Movie {
       this._mode = Mode.EDITING;
       render(this._filmListContainer.getContainer(`.films-list__container`), this._filmDetailComponent, `beforeend`);
 
+      this._filmDetailComponent.setFavoriteClickHandler(this._handleFavoriteClick);
+      this._filmDetailComponent.setWatchListClickHandler(this._handleWatchListClick);
+      this._filmDetailComponent.setHistoryClickHandler(this._handleHistoryClick);
+      this._filmDetailComponent.setCloseClickHandler(this._handleDetailCloseClick);
+
       document.body.classList.add(`hide-overflow`);
-      this._filmDetailComponent.setClickHandler(this._filmDetailCloseClick);
 
       document.addEventListener(`keydown`, this._escKeyDownHandler);
     }
@@ -122,16 +126,11 @@ export default class Movie {
     );
   }
 
-  _filmDetailCloseClick(evt) {
-    const target = evt.target;
-
-    if (target.closest(`.film-details__close-btn`) || target.closest(`.film-details`) === null) {
-      remove(this._filmDetailComponent);
-      document.removeEventListener(`click`, this._escKeyDownHandler);
-      document.body.classList.remove(`hide-overflow`);
-      this._mode = Mode.DEFAULT;
-    }
-
+  _handleDetailCloseClick() {
+    remove(this._filmDetailComponent);
+    document.removeEventListener(`click`, this._escKeyDownHandler);
+    document.body.classList.remove(`hide-overflow`);
+    this._mode = Mode.DEFAULT;
   }
 
   _escKeyDownHandler(evt) {
