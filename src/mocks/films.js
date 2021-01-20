@@ -70,15 +70,14 @@ const generateGenre = () => {
 };
 
 const generateDuration = () => {
-  const MIN_HOUR = 1;
-  const MAX_HOUR = 3;
-  const MIN_MINUTES = 20;
-  const MAX_MINUTES = 59;
 
-  const hours = getRandomNum(MIN_HOUR, MAX_HOUR);
-  const minutes = getRandomNum(MIN_MINUTES, MAX_MINUTES);
+  const MIN_MINUTES = 80;
+  const MAX_MINUTES = 240;
 
-  return `${hours}h ${minutes}m`;
+  const filmDurationInMinutes = getRandomNum(MIN_MINUTES, MAX_MINUTES);
+  const duration = dayjs().hour(0).minute(filmDurationInMinutes).second(0);
+
+  return `${duration.$H}h ${duration.$m}m`;
 };
 
 const generateComments = () => {

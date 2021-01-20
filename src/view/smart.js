@@ -41,7 +41,6 @@ export default class Smart extends Abstract {
       scrollYPoint = this._element.scrollTop;
     }
 
-
     this.updateElement(scrollYPoint);
   }
 
