@@ -82,9 +82,9 @@ export default class Movie {
 
       this._mode = Mode.EDITING;
       render(this._filmListContainer.getContainer(`.films-list__container`), this._filmDetailComponent, `beforeend`);
-
       document.body.classList.add(`hide-overflow`);
 
+      this._filmDetailComponent.restoreHandlers();
       document.addEventListener(`keydown`, this._escKeyDownHandler);
     }
 

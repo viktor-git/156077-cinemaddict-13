@@ -1,4 +1,4 @@
-import Abstract from "./abstract.js";
+import Smart from "./smart.js";
 
 const createGenres = (genre) => {
   const createGenresTemplate = genre.map((item) => {
@@ -27,9 +27,9 @@ const createComments = (comments) => {
   return createCommentsTemplate;
 };
 
-const createFilmDetails = (film) => {
+const createFilmDetails = (data) => {
 
-  const {name, poster, description, rating, ageRating, releaseDate, genre, duration, comments, producer, writers, actors, country} = film;
+  const {name, poster, description, rating, ageRating, releaseDate, genre, duration, comments, producer, writers, actors, country} = data;
 
   return `<section class="film-details">
             <form class="film-details__inner" action="" method="get">
@@ -112,7 +112,9 @@ const createFilmDetails = (film) => {
                   </ul>
 
                   <div class="film-details__new-comment">
-                    <div class="film-details__add-emoji-label"></div>
+                    <div class="film-details__add-emoji-label">
+                      ${(data.chosenEmojiSrc) ? `<img src="${data.chosenEmojiSrc}" width="55" height="55" alt="emoji-smile">` : ``}
+                    </div>
 
                     <label class="film-details__comment-label">
                       <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
@@ -147,10 +149,11 @@ const createFilmDetails = (film) => {
 
 };
 
-export default class FilmDetail extends Abstract {
+export default class FilmDetail extends Smart {
   constructor(film) {
     super();
-    this._film = film;
+
+    this._data = FilmDetail.parseFilmToData(film);
 
     this._clickHandler = this._clickHandler.bind(this);
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
@@ -158,20 +161,66 @@ export default class FilmDetail extends Abstract {
     this._historyClickHandler = this._historyClickHandler.bind(this);
     this._closeClickHandler = this._closeClickHandler.bind(this);
 
+    this._emojiChooseHandler = this._emojiChooseHandler.bind(this);
+    this._setInnerHandlers();
   }
 
   getTemplate() {
-    return createFilmDetails(this._film);
+    return createFilmDetails(this._data);
+  }
+
+  restoreHandlers() {
+    this._setInnerHandlers();
+    this.setCloseClickHandler(this._callback.closeClick);
+    this.setFavoriteClickHandler(this._callback.favoriteClick);
+    this.setWatchListClickHandler(this._callback.watchListClick);
+    this.setHistoryClickHandler(this._callback.historyClick);
+  }
+
+  _setInnerHandlers() {
+    this.getElement()
+      .querySelector(`.film-details__emoji-list`)
+      .addEventListener(`click`, this._emojiChooseHandler);
+  }
+
+  static parseFilmToData(film) {
+    return Object.assign(
+        {},
+        film,
+        {
+          chosenEmojiSrc: null
+        }
+    );
+  }
+
+  static parseDataToFilm(data) {
+    data = Object.assign({}, data);
+
+    data.chosenEmojiSrc = null;
+
+    return data;
   }
 
   _clickHandler(evt) {
     evt.preventDefault();
-    this._callback.click(evt, this._film);
+    this._callback.click(evt, this._data);
   }
 
   _closeClickHandler(evt) {
     evt.preventDefault();
     this._callback.closeClick();
+  }
+
+  _emojiChooseHandler(evt) {
+    evt.preventDefault();
+
+    const target = evt.target;
+
+    if (target.tagName === `IMG`) {
+      this.updateData({
+        chosenEmojiSrc: target.src
+      });
+    }
   }
 
   setCloseClickHandler(callback) {
