@@ -183,6 +183,12 @@ export default class FilmDetail extends Smart {
       .addEventListener(`click`, this._emojiChooseHandler);
   }
 
+  reset(film) {
+    this.updateData(
+        FilmDetail.parseDataToFilm(film)
+    );
+  }
+
   static parseFilmToData(film) {
     return Object.assign(
         {},

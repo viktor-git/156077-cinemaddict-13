@@ -142,6 +142,9 @@ export default class Movie {
   _escKeyDownHandler(evt) {
     if (evt.key === `Escape` || evt.key === `Esc`) {
       evt.preventDefault();
+      console.log(this._filmDetailComponent.reset);
+      this._filmDetailComponent.reset(this._film);
+
       remove(this._filmDetailComponent);
       document.removeEventListener(`keydown`, this._escKeyDownHandler);
       document.body.classList.remove(`hide-overflow`);
