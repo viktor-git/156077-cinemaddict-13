@@ -13,10 +13,12 @@ const FILMS_COUNT_PER_STEP = 5;
 const EXTRA_FILMS_NUMBER = 2;
 
 export default class MoviesList {
-  constructor(filmsContainer) {
+  constructor(filmsContainer, filmsModel) {
     this._filmsContainer = filmsContainer;
+    this._filmsModel = filmsModel;
 
     this._filmPresenter = {};
+    this._renderedFilmsCount = FILMS_COUNT_PER_STEP;
 
     this._sort = new Sort();
     this._filmSection = new FilmSection();
@@ -32,14 +34,25 @@ export default class MoviesList {
 
   }
 
-  init(films) {
-    this._films = films.slice();
-    this._sourcedFilms = films.slice();
+  init() {
+    render(this._filmsContainer, this._filmSection, `beforeend`);
+    render(this._filmSection, this._filmList, `beforeend`);
 
     this._renderFilmList();
     //  this._renderExtraFilmList(topRatedOptions);
     //  this._renderExtraFilmList(mostCommentedOptions);
 
+  }
+
+  _getFilms() {
+    switch (this._currentSortType) {
+      case `DATE`:
+        return this._tasksModel.getTasks().slice().sort(sortByDate);
+      case `RATING`:
+        return this._tasksModel.getTasks().slice().sort(sortByRating);
+    }
+
+    return this._filmsModel.getFilms();
   }
 
   _renderNoFilms() {
@@ -58,24 +71,8 @@ export default class MoviesList {
   }
 
   _handleFilmChange(updatedFilm) {
-
-    this._films = updateItem(this._films, updatedFilm);
+    // this._films = updateItem(this._films, updatedFilm);
     this._filmPresenter[updatedFilm.id].init(updatedFilm);
-  }
-
-  _sortFilms(sortType) {
-    switch (sortType) {
-      case `DATE`:
-        this._films.sort(sortByDate);
-        break;
-      case `RATING`:
-        this._films.sort(sortByRating);
-        break;
-      default:
-        this._films = this._sourcedFilms.slice();
-    }
-
-    this._currentSortType = sortType;
   }
 
   _handleSortTypeChange(sortType) {
@@ -83,7 +80,7 @@ export default class MoviesList {
       return;
     }
 
-    this._sortFilms(sortType);
+    this._currentSortType = sortType;
     this._clearFilmList();
     this._renderFilmList();
   }
@@ -94,7 +91,6 @@ export default class MoviesList {
       .forEach((presenter) => {
         presenter.resetView();
       });
-
   }
 
   _clearFilmList() {
@@ -109,26 +105,28 @@ export default class MoviesList {
     remove(this._showMoreBtn);
   }
 
-  _renderFilms(from, to, filmListContainer) {
-    this._films.slice(from, to).forEach((film) => {
-      this._renderFilm(film, filmListContainer);
-    });
+  _renderFilms(films) {
+    films.forEach((film) => this._renderFilm(film, this._filmList));
   }
 
   _renderFilmList() {
-    if (!this._films.length) {
+    const filmsCount = this._getFilms().length;
+
+    if (!filmsCount) {
       this._renderNoFilms();
       return;
     }
 
-    render(this._filmsContainer, this._filmSection, `beforeend`);
-    render(this._filmSection, this._filmList, `beforeend`);
-
+    // render(this._filmsContainer, this._filmSection, `beforeend`);
+    // render(this._filmSection, this._filmList, `beforeend`);
 
     this._renderSort();
-    this._renderFilms(0, Math.min(this._films.length, this._renderedMoviesCount), this._filmList);
 
-    if (this._films.length > FILMS_START_COUNT) {
+    const films = this._getFilms().slice(0, Math.min(filmsCount, FILMS_COUNT_PER_STEP));
+
+    this._renderFilms(films);
+
+    if (filmsCount > FILMS_START_COUNT) {
       this._renderShowMoreBtn();
     }
 
@@ -142,13 +140,15 @@ export default class MoviesList {
   }
 
   _handleLoadMoreBtnClick() {
-    this._films.slice(this._renderedMoviesCount, this._renderedMoviesCount + FILMS_COUNT_PER_STEP).forEach((film) => {
-      this._renderFilm(film, this._filmList);
-    });
+    const filmsCount = this._getFilms().length;
+    const newRenderedFilmsCount = Math.min(filmsCount, this._renderedFilmsCount + FILMS_COUNT_PER_STEP);
 
-    this._renderedMoviesCount += FILMS_COUNT_PER_STEP;
+    const films = this._getFilms().slice(this._renderedFilmsCount, newRenderedFilmsCount);
 
-    if (this._renderedMoviesCount >= this._films.length) {
+    this._renderedFilmsCount = newRenderedFilmsCount;
+    this._renderFilms(films);
+
+    if (this._renderedFilmsCount >= filmsCount) {
       remove(this._showMoreBtn);
     }
   }
